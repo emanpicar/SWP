@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Save the World Project</string>
+    <string name="bluetooth_radar">Bluetooth Radar</string>
+    <string name="fence_radar">Fence Radar</string>
+</resources>
