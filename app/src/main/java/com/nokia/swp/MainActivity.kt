@@ -13,6 +13,7 @@ import android.util.Log
 import android.webkit.WebView
 import android.widget.Button
 import org.jetbrains.anko.toast
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,11 +21,15 @@ class MainActivity : AppCompatActivity() {
     private var m_bluetoothAdapter: BluetoothAdapter? = null
     private val bTItems: HashMap<String, Short> = LinkedHashMap()
     private val REQUEST_ENABLE_BLUETOOTH = 1
+    val nearDevices = ArrayList<TextView>()
+    val farDevices = ArrayList<TextView>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupDevices()
         navigationSetup()
         radarBG()
         run()
@@ -105,6 +110,30 @@ class MainActivity : AppCompatActivity() {
                 toast("Bluetooth enabling has been cancelled")
             }
         }
+
+    fun setupDevices() {
+        val nearDevice1 = findViewById<TextView>(R.id.nearDevice1)
+        val nearDevice2 = findViewById<TextView>(R.id.nearDevice2)
+        val nearDevice3 = findViewById<TextView>(R.id.nearDevice3)
+        val farDevice1 = findViewById<TextView>(R.id.farDevice1)
+        val farDevice2 = findViewById<TextView>(R.id.farDevice2)
+        val farDevice3 = findViewById<TextView>(R.id.farDevice3)
+
+        nearDevices.add(nearDevice1)
+        nearDevices.add(nearDevice2)
+        nearDevices.add(nearDevice3)
+
+        farDevices.add(farDevice1)
+        farDevices.add(farDevice2)
+        farDevices.add(farDevice3)
+
+        hideDevices(nearDevices)
+        hideDevices(farDevices)
+    }
+
+    fun hideDevices(devices : ArrayList<TextView>) {
+        for (device : TextView in devices)
+            device.visibility = View.INVISIBLE
 
     }
 }

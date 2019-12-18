@@ -93,14 +93,6 @@
             android:text="♦ farDevice3"
             android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/scanBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SCAN"
-            android:visibility="visible"
-            tools:visibility="visible" />
-
     </WebView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
