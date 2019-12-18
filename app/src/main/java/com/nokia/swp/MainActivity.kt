@@ -69,12 +69,27 @@ class MainActivity : AppCompatActivity() {
     private fun discoverDevices() {
         if (m_bluetoothAdapter!!.isEnabled) {
             scanDevices()
+            plotDevices()
+        }
+    }
+
+    private fun plotDevices() {
+        setupDevices()
+        Log.i("XXXXXX plotting devices", "device list:" + bTItems.size )
+        for(device: String in bTItems.keys) {
+            var strength = bTItems.get(device)
+            if(strength!! > -70) {
+                showNearDevice(device)
+            } else {
+                showFarDevice(device)
+            }
         }
     }
 
     private fun plot(name: String, signal: Short) {
         bTItems.put(name, signal)
         Log.i("XXXXXX Device:", name + "(" + signal + ")" )
+
     }
 
     private val mFoundReceiver = object : BroadcastReceiver() {
@@ -137,8 +152,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideDevices(devices : ArrayList<TextView>) {
-        for (device : TextView in devices)
+        for (device : TextView in devices) {
+            Log.i("YYYYY Hiding", "device : " + device.text)
             device.visibility = View.INVISIBLE
+        }
+    }
 
+    fun showNearDevice(name: String) {
+        for (device : TextView in nearDevices) {
+            if(device.visibility == View.INVISIBLE) {
+                setDeviceName(device, name)
+                device.visibility = View.VISIBLE
+                break
+            }
+        }
+    }
+
+    fun showFarDevice(name: String) {
+        for (device : TextView in farDevices) {
+            if(device.visibility == View.INVISIBLE) {
+                setDeviceName(device, name)
+                device.visibility = View.VISIBLE
+                break
+            }
+        }
+    }
+
+    fun setDeviceName(device: TextView, name: String) {
+        device.text = device.text.substring(0, 1) + name
     }
 }
