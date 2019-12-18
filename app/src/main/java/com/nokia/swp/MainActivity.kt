@@ -15,6 +15,7 @@ import android.webkit.WebView
 import android.widget.Button
 import org.jetbrains.anko.toast
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         navigationSetup()
         radarBG()
         run()
+        bluetooth_btn.setOnClickListener { discoverDevices() }
     }
 
     fun navigationSetup() {
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun plot(name: String, signal: Short) {
+        bTItems.put(name, signal)
         Log.i("XXXXXX Device:", name + "(" + signal + ")" )
     }
 
