@@ -10,6 +10,7 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.webkit.WebView
 import android.widget.Button
 import org.jetbrains.anko.toast
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun plot(name: String, signal: Short) {
-        Log.i("Bluetooth Device:", name + "(" + signal + ")" )
+        Log.i("XXXXXX Device:", name + "(" + signal + ")" )
     }
 
     private val mFoundReceiver = object : BroadcastReceiver() {
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             if (BluetoothDevice.ACTION_FOUND == action) {
                 val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                 val signal = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI, java.lang.Short.MIN_VALUE)
-                if (device.name != null && device.name.startsWith(DEVICE_PREFIX)) {
+                if (device.name != null) { //&& device.name.startsWith(DEVICE_PREFIX)) {
                     plot(device.name, signal)
                 }
             }
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                 toast("Bluetooth enabling has been cancelled")
             }
         }
+    }
 
     fun setupDevices() {
         val nearDevice1 = findViewById<TextView>(R.id.nearDevice1)
